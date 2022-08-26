@@ -1,0 +1,110 @@
+#:kivy 1.11.1
+<SettingsScreen>:
+    BoxLayout:
+        orientation:'vertical'
+        Label:
+            id: ip
+            text: 'IP adress'
+            font_size: 20
+        TextInput:
+            id: ip_input
+            text: 'localhost'
+            font_size: 20
+            multiline: False
+            halign: 'center'
+            valign: 'middle'
+        Label:
+            id: port
+            text: 'Port'
+            font_size: 20
+        TextInput:
+            id: port_input
+            text: '502'
+            font_size: 20
+            multiline: False
+            halign: 'center'
+            valign: 'middle'
+        Button:
+            id: bt_con
+            text:'CONNECT'
+            on_release: root.connect()
+        
+        BoxLayout:
+            orientation: 'horizontal'
+            Button:
+                text: 'SETTINGS'
+                
+            Button:
+                text: 'DATA'
+                on_press: root.manager.current = 'data'
+                
+
+<DataScreen>:
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            orientation:'horizontal'
+            Label:
+                id: readings
+                text: 'Reading:'
+                font_size: 20
+            Label:
+                id: readings_results
+                text: '0'
+                font_size: 20
+                
+        BoxLayout:
+            orientation:'horizontal'
+            Label:
+                id: modbus_adress
+                text: 'Modbus adress'
+                font_size: 20
+            TextInput:
+                id: modbus_adress_input
+                text: '1000'
+                font_size: 20
+                multiline: False
+                halign: 'center'
+                valign: 'middle'
+            
+        GridLayout:
+            cols: 2
+            rows: 2
+            Button:
+                id: holding
+                text: 'Holding Registers'
+                font_size: 20
+                on_press: root.read(1)
+            Button:
+                id: coil
+                text: 'Coils'
+                font_size: 20
+                on_press: root.read(2)
+            Button:
+                id: inputs
+                text: 'Input Registers'
+                font_size: 20
+                on_press: root.read(3)
+            Button:
+                id: discrete
+                text: 'Discrete Inputs'
+                font_size: 20
+                on_press: root.read(4)
+            
+        BoxLayout:
+            orientation: 'horizontal'    
+            CheckBox:
+                id: checkbox
+                active: True
+            Label:
+                id: check_lbl
+                text: 'Read Once'
+                font_size: 20
+        
+        BoxLayout:
+            orientation: 'horizontal'
+            Button:
+                text: 'SETTINGS'
+                on_press: root.manager.current = 'settings'
+            Button:
+                text: 'DATA'
